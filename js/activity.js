@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
                       'content':$(e.target).prev().find(".comment").val(),  
                       });
 
-	  		     $.ajax({url: "http://localhost/jasmine/api/comment/create",
+	  		     $.ajax({url: SITEURL+"/api/comment/create",
                 type: 'POST', 
                 data:  data,    
                 success: function(response) {
@@ -58,14 +58,15 @@ jQuery(document).ready(function($) {
 	  });
       $(document).on("click", "#add-activity", function(e) {
  
-             data = ({'action':'@admin posted an update', 
-                      'content': $("#whats-new").val(), 
-                      'component':'activity',  
-                      'type':'activity_update',  
-                      });
-             $.ajax({url: "http://localhost/jasmine/api/activity/create",
+             data =  {action:'@admin posted an update', 
+                      content: $("#whats-new").val(), 
+                      component:'activity',  
+                      type:'activity_update'  
+                      } ;
+                      console.log(JSON.stringify(data))
+             $.ajax({url: SITEURL+"/api/activity/create",
                       type: 'POST',
-                      data:data,
+                      data: data, 
                       success: function(response) {
                          if(response.status==true){
                             alert("Activity Added (Refresh this page)")
@@ -77,7 +78,7 @@ jQuery(document).ready(function($) {
 //deleting a activity
 $(document).on("click", ".delete-comment", function(e) {
      $.ajax({
-      url: "http://localhost/jasmine/api/activity/delete/"+$(e.target).attr('activity-id'),
+      url: SITEURL+"/api/activity/delete/"+$(e.target).attr('activity-id'),
       type: 'DELETE',
       success: function(response) {
            if(response.status==true){
@@ -96,7 +97,7 @@ $(document).on("click", ".edit-activity", function(e) {
             'content': $("#edit-content-"+$(e.target).attr('activity-id')).val(),    
             });
      $.ajax({
-      url: "http://localhost/jasmine/api/activity/update/"+$(e.target).attr('activity-id'),
+      url: SITEURL+"/api/activity/update/"+$(e.target).attr('activity-id'),
       type: 'POST',
       data :data,
       success: function(response) {
