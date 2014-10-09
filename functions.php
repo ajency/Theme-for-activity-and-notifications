@@ -227,7 +227,7 @@ function twentyfourteen_scripts() {
 	
 	wp_enqueue_script( "underscore",get_template_directory_uri() . "/js/underscore.js",array( "jquery" ), false, true );
 	wp_localize_script(  "jasmine-script", "SITEURL", site_url() );
-           
+    wp_localize_script( 'jasmine-script', 'WP_API_Settings', array( 'root' => esc_url_raw( get_json_url() ), 'nonce' => wp_create_nonce( 'wp_json' ) ) );       
 	wp_enqueue_script( 'jasmine-activity', get_template_directory_uri() . '/js/activity.js', array( 'jquery' ), '20140319', true );
 }
 add_action( 'wp_enqueue_scripts', 'twentyfourteen_scripts' );
@@ -669,7 +669,11 @@ function record_blog_post_published_activity( $ID, $post ) {
 }
 add_action(  'publish_post',  'record_blog_post_published_activity', 10, 2 );
 
+function activity_format_activity_action_post_published($action, $activity  ){
 
+
+return $action;
+}
 
 
 

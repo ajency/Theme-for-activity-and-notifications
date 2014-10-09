@@ -12,8 +12,9 @@ jQuery(document).ready(function($) {
     
 	$(document).on("change", "#filter-by-component", function(e) {
         $("#activity-stream").html("loading.............");
-      
-        $.get(SITEURL+"/api/activities/me/?component="+$(e.target).val(), {}, function(collection)  {  
+       data = ({'_wp_json_nonce': WP_API_Settings  
+                      });
+        $.ajax(SITEURL+"/api/activities/me/?component="+$(e.target).val(), {data:data}, function(collection)  {  
 
                   display_activitites(collection);
             });
